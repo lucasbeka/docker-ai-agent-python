@@ -3,12 +3,12 @@ import os
 import sqlmodel
 from sqlmodel import Session, SQLModel
 
-DATABSE_URL = os.environ.get("DATABSE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-if DATABSE_URL == "":
-    raise NotImplementedError("'DATABSE_URL' needs to be set.")
+if DATABASE_URL == "":
+    raise NotImplementedError("'DATABASE_URL' needs to be set.")
 
-engine = sqlmodel.create_engine(DATABSE_URL)
+engine = sqlmodel.create_engine(DATABASE_URL)
 
 def init_db():
     print("creating databeses tables...")
