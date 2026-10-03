@@ -35,7 +35,7 @@ services:
     # env_file:
     #   - .env.sample-db
     volumes:
-      - dc_managed_db_volume:/var/lib/postgresql/data
+      - dc_managed_db_volume:/var/lib/postgresql
 
 
   static_html:
