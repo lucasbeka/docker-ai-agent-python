@@ -24,6 +24,20 @@ services:
           path: backend/src/
           # target: /app
 
+  db_service:
+    image: postgres:19beta4
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=db-password
+      - POSTGRES_DB=mydb
+    # env_file:
+    #   - .env.sample-db
+    volumes:
+      - dc_managed_db_volume:/var/lib/postgresql/data
+
+
   static_html:
     # image: python:latest
     build:
@@ -35,3 +49,8 @@ services:
     command: python -m http.server 8000
     volumes: 
       - ./static_html/src:/app
+
+
+
+volumes: 
+  dc_managed_db_volume:
