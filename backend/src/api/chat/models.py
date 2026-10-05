@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Field
 
 class ChatMessagePayload(SQLModel):
     message: str

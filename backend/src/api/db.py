@@ -5,7 +5,7 @@ from sqlmodel import Session, SQLModel
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
-if DATABASE_URL == "":
+if not DATABASE_URL:
     raise NotImplementedError("'DATABASE_URL' needs to be set.")
 
 engine = sqlmodel.create_engine(DATABASE_URL)
