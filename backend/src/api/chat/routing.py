@@ -4,6 +4,8 @@ from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
 
 from api.db import get_session
+from api.ai.schemas import EmailMessageSchema
+from api.ai.services import generate_email_message
 from .models import ChatMessagePayload, ChatMessage, ChatMessageListItem
 router = APIRouter()
 
@@ -17,8 +19,7 @@ def chat_list_messages(session: Session = Depends(get_session)):
     results = session.exec(query).fetchall()[:10]
     return results
 
-
-@router.post("/", response_model=ChatMessageListItem)
+@router.post("/", response_model=EmailMessageSchema)
 def chat_create_message(
     payload: ChatMessagePayload,
     session: Session = Depends(get_session)
@@ -29,8 +30,8 @@ def chat_create_message(
     session.add(obj)
     session.commit()
     session.refresh(obj)
-
-    return obj
+    response = generate_email_message(payload.message)
+    return response
 
 # Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/chats/ -ContentType "application/json" -Body '{"message": "Hello world"}'
 # Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/chats/recent/
