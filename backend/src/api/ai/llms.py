@@ -13,6 +13,8 @@ def get_openai_llm():
     llm_base = ChatOpenAI(
     model=OPENAI_MODEL_NAME,
     api_key=OPENAI_API_KEY,
-    base_url = OPENAI_BASE_URL
+    base_url = OPENAI_BASE_URL,
+    temperature=0,
+    max_tokens=300,
 )
     return llm_base
